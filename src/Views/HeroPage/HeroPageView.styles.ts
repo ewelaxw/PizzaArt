@@ -3,7 +3,7 @@ import { StyledTheme } from "../../GlobalStyles/theme";
 
 export const HeroPageViewWrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-rows: 200px 200px;
   padding: 30px;

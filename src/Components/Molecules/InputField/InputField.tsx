@@ -1,5 +1,5 @@
 import { Input } from "../../Atoms/Input/Input";
-import { Label } from "../../Atoms/Label";
+import { Label } from "../../Atoms/Label/Label";
 import { InputFieldWrapper } from "./InputField.styles";
 
 type InputProps = {

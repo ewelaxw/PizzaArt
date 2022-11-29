@@ -6,6 +6,7 @@ export const theme: Theme = {
     blueGray: "rgba(202,207,221,1)",
     grenade: "rgba(15,24,39,1)",
     green: "rgba(47,131,78,1)",
+    red: "rgba(197,27,41,1)",
   },
   fontSizes: {
     small: "12px",
@@ -31,6 +32,7 @@ export type Theme = {
     blueGray: string;
     grenade: string;
     green: string;
+    red: string;
   };
   gradients: {};
   fontSizes: {
