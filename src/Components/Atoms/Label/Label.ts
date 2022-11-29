@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledTheme } from "../../GlobalStyles/theme";
+import { StyledTheme } from "../../../GlobalStyles/theme";
 
 export const Label = styled.label`
   font-size: ${(props: StyledTheme) => props.theme.fontSizes.medium};
