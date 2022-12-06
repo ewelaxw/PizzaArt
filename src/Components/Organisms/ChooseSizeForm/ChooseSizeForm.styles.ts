@@ -1,7 +1,8 @@
+import { Field, Form } from "formik";
 import styled from "styled-components";
 import { StyledTheme } from "../../../GlobalStyles/theme";
 
-export const ChooseSizeFormWrapper = styled.form`
+export const ChooseSizeFormWrapper = styled(Form)`
   width: 1000px;
   height: auto;
   background-color: ${(props: StyledTheme) => props.theme.colors.blueGray};
@@ -19,7 +20,7 @@ export const ChooseSizeFormWrapper = styled.form`
 `;
 
 export const ChooseSizeHeader = styled.h2`
-  font-family: ${(props: StyledTheme) => props.theme.fontFamily.inter};
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
   font-weight: normal;
   display: flex;
   justify-content: center;
@@ -28,7 +29,7 @@ export const ChooseSizeHeader = styled.h2`
   color: ${(props: StyledTheme) => props.theme.colors.green};
   background-color: ${(props: StyledTheme) => props.theme.colors.grenade};
   border-radius: 10px;
-  width: 500px;
+  width: 700px;
   height: 40px;
   margin-bottom: 60px;
 `;
@@ -41,28 +42,35 @@ export const ChooseSizeFormListWrapper = styled.ul`
 `;
 
 export const ChooseSizeFormListElement = styled.li`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 100px;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-auto-rows: auto;
+  row-gap: 10px;
 `;
 
-export const ChooseSizeFormCheckboxAndLabelWrapper = styled.div`
+export const ChooseSizeFormRadioButtonAndLabelWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin: 10px;
 `;
 
-export const ChooseSizeFormCheckbox = styled.input`
-  width: 15px;
-  height: 15px;
-  background-color: ${(props: StyledTheme) => props.theme.colors.red};
+export const ChooseSizeFormRadioButton = styled(Field)`
+  width: 25px;
+  height: 25px;
+  background-color: ${(props: StyledTheme) => props.theme.colors.green};
   border-radius: 50%;
   margin: 0 20px;
+  appearance: none;
+
+  :checked {
+    background-color: ${(props: StyledTheme) => props.theme.colors.red};
+  }
 `;
 
 export const ChooseSizeFormLabel = styled.label`
-  font-family: ${(props: StyledTheme) => props.theme.fontFamily.inter};
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
+  font-size: ${(props: StyledTheme) => props.theme.fontSizes.large};
 `;
 
 export const ButtonBasicChooseSizeWrapper = styled.div`
@@ -78,4 +86,5 @@ export const ChooseSizeFormImg = styled.img`
   display: flex;
   justify-self: flex-end;
   align-self: flex-start;
+  margin: 60px 0;
 `;

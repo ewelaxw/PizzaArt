@@ -1,25 +1,26 @@
+import { Field, Form } from "formik";
 import styled from "styled-components";
 import { StyledTheme } from "../../../GlobalStyles/theme";
 
-export const ChooseTypePizzaFormWrapper = styled.form`
-  width: 1000px;
+export const ChooseTypePizzaFormWrapper = styled(Form)`
+  width: 1200px;
   height: auto;
   background-color: ${(props: StyledTheme) => props.theme.colors.blueGray};
   border-radius: 10px;
   padding: 20px 40px;
   display: grid;
-  grid-template-rows: 50px 200px 200px;
-  grid-row-gap: 15px;
+  grid-auto-rows: auto;
+  row-gap: 30px;
   align-self: center;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   grid-template-columns: 1fr;
   position: relative;
   margin: 50px 0;
 `;
 
 export const ChooseTypePizzaFormHeader = styled.h2`
-  font-family: ${(props: StyledTheme) => props.theme.fontFamily.inter};
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
   font-weight: normal;
   display: flex;
   justify-content: center;
@@ -28,41 +29,49 @@ export const ChooseTypePizzaFormHeader = styled.h2`
   color: ${(props: StyledTheme) => props.theme.colors.green};
   background-color: ${(props: StyledTheme) => props.theme.colors.grenade};
   border-radius: 10px;
-  width: 500px;
+  width: 700px;
   height: 40px;
   margin-bottom: 60px;
 `;
 
 export const ChooseTypePizzaFormListWrapper = styled.ul`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-auto-rows: auto;
+  row-gap: 10px;
+  justify-self: center;
+  padding: 0;
 `;
 
 export const ChooseTypePizzaFormListElement = styled.li`
-  width: 100%;
+  width: fit-content;
   display: flex;
   flex-direction: column;
-  margin: 100px;
 `;
 
-export const ChooseTypePizzaFormCheckboxAndLabelWrapper = styled.div`
+export const ChooseTypePizzaFormRadioButtonAndLabelWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin: 10px;
 `;
 
-export const ChooseTypePizzaFormCheckbox = styled.input`
-  width: 15px;
-  height: 15px;
-  background-color: ${(props: StyledTheme) => props.theme.colors.red};
+export const ChooseTypePizzaFormRadioButton = styled(Field)`
+  width: 25px;
+  height: 25px;
+  background-color: ${(props: StyledTheme) => props.theme.colors.green};
   border-radius: 50%;
   margin: 0 20px;
+  appearance: none;
+
+  :checked {
+    background-color: ${(props: StyledTheme) => props.theme.colors.red};
+  }
 `;
 
 export const ChooseTypePizzaFormLabel = styled.label`
-  font-family: ${(props: StyledTheme) => props.theme.fontFamily.inter};
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
+  font-size: ${(props: StyledTheme) => props.theme.fontSizes.large};
 `;
 
 export const ButtonBasicChooseTypePizzaWrapper = styled.div`
@@ -78,4 +87,5 @@ export const ChooseTypePizzaFormImg = styled.img`
   display: flex;
   justify-self: flex-end;
   align-self: flex-start;
+  margin: 30px 0;
 `;

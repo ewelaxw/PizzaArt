@@ -7,10 +7,10 @@ export const LoginFormWrapper = styled(Form)`
   height: auto;
   background-color: ${(props: StyledTheme) => props.theme.colors.green};
   border-radius: 10px;
-  padding: 20px 40px;
+  padding: 40px 40px;
   display: grid;
   grid-template-rows: 30px 70px 70px 70px;
-  grid-row-gap: 15px;
+  grid-row-gap: 20px;
   align-self: center;
   justify-items: center;
   align-items: center;
@@ -20,7 +20,8 @@ export const LoginFormWrapper = styled(Form)`
 export const LoginHeader = styled.h2`
   display: flex;
   justify-content: center;
-  font-family: ${(props: StyledTheme) => props.theme.fontFamily.inter};
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
   font-weight: normal;
   color: ${(props: StyledTheme) => props.theme.colors.grenade};
+  font-size: ${(props: StyledTheme) => props.theme.fontSizes.largeXl};
 `;

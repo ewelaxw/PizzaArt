@@ -10,11 +10,14 @@ export const HeroPageViewWrapper = styled.div`
   grid-row-gap: 20px;
 `;
 
-export const HeroPageViewHeader = styled.h1`
-  color: ${(props: StyledTheme) => props.theme.colors.green};
+export const HeroPageViewImg = styled.img`
+  width: auto;
+  height: auto;
+  transform: scale(2);
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-self: center;
+  align-self: center;
 `;
 
 export const ButtonBasicWrapper = styled.div`

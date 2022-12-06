@@ -1,20 +1,32 @@
 import { routes } from "../../../Routes/Routes";
-import { ButtonBasic } from "../../Atoms/Buttons/Buttons";
+import { NavigationButton } from "../../Atoms/Buttons/Buttons";
 import { NavigationLogo, NavigationWrapper } from "./Navigation.styles";
 import { Link, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../../Providers/UserProvider";
 
 const Navigation = () => {
   const { index, registration, login } = routes;
   const location = useLocation();
+  const { user, handleLogout } = useContext(UserContext);
+
   return (
     <NavigationWrapper>
       <NavigationLogo to={index} />
-      <ButtonBasic
-        as={Link}
-        to={location.pathname === registration ? login : registration}
-      >
-        {location.pathname === registration ? "Logowanie" : "Rejestracja"}
-      </ButtonBasic>
+      {location.pathname === registration && (
+        <NavigationButton as={Link} to={login}>
+          Logowanie
+        </NavigationButton>
+      )}
+      {location.pathname === login && (
+        <NavigationButton as={Link} to={registration}>
+          Rejestracja
+        </NavigationButton>
+      )}
+
+      {user && (
+        <NavigationButton onClick={handleLogout}>Wyloguj</NavigationButton>
+      )}
     </NavigationWrapper>
   );
 };

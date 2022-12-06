@@ -3,15 +3,16 @@ import { ButtonBasic } from "../../Components/Atoms/Buttons/Buttons";
 import { routes } from "../../Routes/Routes";
 import {
   ButtonBasicWrapper,
-  HeroPageViewHeader,
+  HeroPageViewImg,
   HeroPageViewWrapper,
 } from "./HeroPageView.styles";
+import ImgHeroPage from "../../Assets/Images/PizzaArt.png";
 
 const HeroPageView = () => {
   const { registration, login } = routes;
   return (
     <HeroPageViewWrapper>
-      <HeroPageViewHeader>Pizza-Art</HeroPageViewHeader>
+      <HeroPageViewImg src={ImgHeroPage} alt="ImgHeroPage" />
       <ButtonBasicWrapper>
         <ButtonBasic as={Link} to={login}>
           Logowanie

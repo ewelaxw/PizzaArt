@@ -1,32 +1,44 @@
 import { routes } from "../../../Routes/Routes";
 import InputField from "../../Molecules/InputField/InputField";
 import { LoginFormWrapper, LoginHeader } from "./LoginForm.styles";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import { FormError } from "../../Atoms/FormError/FormError";
 import { ButtonBasic } from "../../Atoms/Buttons/Buttons";
+import axios from "axios";
+import { UserContext } from "../../../Providers/UserProvider";
 
 interface MyFormValues {
-  email: string;
+  name: string;
   password: string;
 }
 
 const LoginForm = () => {
   const initialValues: MyFormValues = {
-    email: "",
+    name: "",
     password: "",
   };
 
-  const { login } = routes;
+  const { chooseType } = routes;
 
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const { handleSetUser } = useContext(UserContext);
 
-  const handleSubmit = async (value: MyFormValues) => {
-    console.log("test");
-    setError("");
-    navigate(login, { replace: true });
+  const handleSubmit = async (values: MyFormValues) => {
+    const { name, password } = values;
+    axios
+      .post("http://localhost:8000/Login", {
+        name: name,
+        password: password,
+      })
+      .then((response: any) => {
+        const user = response.data;
+        handleSetUser(user);
+        navigate(chooseType, { replace: true });
+      })
+      .catch(() => setError("Nie udało się zalogować"));
   };
 
   return (
@@ -34,7 +46,6 @@ const LoginForm = () => {
       initialValues={initialValues}
       onSubmit={(values, action) => {
         handleSubmit(values);
-        console.log("Submit");
 
         action.setSubmitting(false);
       }}
@@ -44,15 +55,10 @@ const LoginForm = () => {
         {error ? (
           <FormError>
             Podane dane są nieprawidłowe. <br />
-            Upewnij się, że podane email i hasło są poprawne
+            Upewnij się, że podane dane są prawidłowe
           </FormError>
         ) : null}
-        <InputField
-          name="email"
-          placeholder="Email"
-          label="Email"
-          type="email"
-        />
+        <InputField name="name" placeholder="Imię" label="Imię" type="text" />
         <InputField
           name="password"
           placeholder="Hasło"
