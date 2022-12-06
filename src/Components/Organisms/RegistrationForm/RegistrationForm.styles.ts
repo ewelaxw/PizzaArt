@@ -20,7 +20,8 @@ export const RegistrationFormWrapper = styled(Form)`
 export const RegistrationHeader = styled.h2`
   display: flex;
   justify-content: center;
-  font-family: ${(props: StyledTheme) => props.theme.fontFamily.inter};
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
   font-weight: normal;
   color: ${(props: StyledTheme) => props.theme.colors.grenade};
+  font-size: ${(props: StyledTheme) => props.theme.fontSizes.largeXl};
 `;

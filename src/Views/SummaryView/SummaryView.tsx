@@ -1,10 +1,10 @@
-import SummaryForm from "../../Components/Organisms/SummaryForm/SummaryForm";
+import Summary from "../../Components/Organisms/SummaryForm/Summary";
 import { SummaryViewWrapper } from "./SummaryView.styles";
 
 const SummaryView = () => {
   return (
     <SummaryViewWrapper>
-      <SummaryForm />
+      <Summary />
     </SummaryViewWrapper>
   );
 };

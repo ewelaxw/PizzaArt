@@ -1,67 +1,135 @@
 import { ButtonBasic } from "../../Atoms/Buttons/Buttons";
 import {
   ButtonBasicChooseTypePizzaWrapper,
-  ChooseTypePizzaFormCheckbox,
-  ChooseTypePizzaFormCheckboxAndLabelWrapper,
   ChooseTypePizzaFormHeader,
   ChooseTypePizzaFormImg,
   ChooseTypePizzaFormLabel,
   ChooseTypePizzaFormListElement,
   ChooseTypePizzaFormListWrapper,
+  ChooseTypePizzaFormRadioButton,
+  ChooseTypePizzaFormRadioButtonAndLabelWrapper,
   ChooseTypePizzaFormWrapper,
 } from "./ChooseTypePizzaForm.styles";
 import ChooseTypePizzaImg from "../../../Assets/Images/TypeOfPizza.svg";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Pizza } from "../../../Types/types";
+import { Formik } from "formik";
+import { OrderContext } from "../../../Providers/OrderProvider/OrderProvider";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../../Routes/Routes";
+import { SelectError } from "../../Atoms/FormError/FormError";
 
+type MyFormValues = {
+  pizzaName: string;
+};
 const ChooseTypePizzaForm = () => {
-  return (
-    <ChooseTypePizzaFormWrapper>
-      <ChooseTypePizzaFormHeader>
-        Wybierz rodzaj pizzy
-      </ChooseTypePizzaFormHeader>
+  const { chooseAdditives } = routes;
+  const [pizzas, setPizzas] = useState<Pizza[]>([]);
+  const { handleSetPizza } = useContext(OrderContext);
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  useEffect(() => {
+    setError("");
+    axios
+      .get("http://localhost:8000/PizzaTypes")
 
-      <ChooseTypePizzaFormListWrapper>
-        <ChooseTypePizzaFormListElement>
-          <ChooseTypePizzaFormCheckboxAndLabelWrapper>
-            <ChooseTypePizzaFormCheckbox />
-            <ChooseTypePizzaFormLabel>
-              Margharita sos pomidorowy, ser, oregano
-            </ChooseTypePizzaFormLabel>
-          </ChooseTypePizzaFormCheckboxAndLabelWrapper>
+      .then((response: any) => {
+        const pizzas = response.data as Pizza[];
 
-          <ChooseTypePizzaFormCheckboxAndLabelWrapper>
-            <ChooseTypePizzaFormCheckbox />
-            <ChooseTypePizzaFormLabel>
-              Pepperoni sos pomidorowy, ser, salami pepperoni, oregano
-            </ChooseTypePizzaFormLabel>
-          </ChooseTypePizzaFormCheckboxAndLabelWrapper>
+        if (pizzas) {
+          setPizzas(pizzas);
+        }
+      })
+      .catch(() => setError("Błąd ładowania"));
+  }, []);
 
-          <ChooseTypePizzaFormCheckboxAndLabelWrapper>
-            <ChooseTypePizzaFormCheckbox />
-            <ChooseTypePizzaFormLabel>
-              Mafioso sos pomidorowy, ser, salami, czosnek, papryczki jalapenos,
-              sos Chilli Louisiana, oregano
-            </ChooseTypePizzaFormLabel>
-          </ChooseTypePizzaFormCheckboxAndLabelWrapper>
+  const initialValues: MyFormValues = {
+    pizzaName: "",
+  };
 
-          <ChooseTypePizzaFormCheckboxAndLabelWrapper>
-            <ChooseTypePizzaFormCheckbox />
+  const handelSubmit = (values: MyFormValues) => {
+    setError("");
+    if (values.pizzaName) {
+      handleSetPizza(values.pizzaName, pizzas);
+      navigate(chooseAdditives);
+    } else {
+      setError("Proszę wybrać pizzę");
+    }
+  };
+  const getIngredients = (ingredients: string[]) => {
+    let listOfIngredients = "";
+    ingredients.forEach((ingredient, index) => {
+      listOfIngredients += `${ingredient}`;
+      if (index < ingredients.length - 1) {
+        listOfIngredients += `, `;
+      }
+    });
+    return listOfIngredients;
+  };
+
+  const setSpicyLevel = (level: number) => {
+    let spiciness = "";
+    if (!level) {
+      return "🌶 ";
+    }
+    for (let i = 0; i < level; i++) {
+      spiciness += "🌶️ ";
+    }
+    return spiciness;
+  };
+
+  const convertToList = (pizzas: Pizza[]) => {
+    return pizzas.map((pizza) => {
+      const { id, name, ingredients, isVege, spiciness /*prices*/ } = pizza;
+      return {
+        label: `🍕 ${name} ${setSpicyLevel(spiciness)} (${getIngredients(
+          ingredients
+        )}) Vegetarian: ${isVege ? "✔️" : "❌"}`,
+        value: id,
+      };
+    });
+  };
+
+  const renderPizzas = (pizzas: Pizza[]) => {
+    return convertToList(pizzas).map((pizza, index) => {
+      return (
+        <ChooseTypePizzaFormListElement key={index}>
+          <ChooseTypePizzaFormRadioButtonAndLabelWrapper>
+            <ChooseTypePizzaFormRadioButton
+              type={"radio"}
+              name={"pizzaName"}
+              value={pizza.value}
+            />
             <ChooseTypePizzaFormLabel>
-              Napoletana sos pomidorowy, ser, salami, oliwki zielone, papryczki
-              jalapenos, oregano
+              {`${pizza.label}`}
             </ChooseTypePizzaFormLabel>
-          </ChooseTypePizzaFormCheckboxAndLabelWrapper>
+          </ChooseTypePizzaFormRadioButtonAndLabelWrapper>
         </ChooseTypePizzaFormListElement>
-      </ChooseTypePizzaFormListWrapper>
+      );
+    });
+  };
+  return (
+    <Formik initialValues={initialValues} onSubmit={handelSubmit}>
+      <ChooseTypePizzaFormWrapper>
+        <ChooseTypePizzaFormHeader>
+          Wybierz rodzaj pizzy
+        </ChooseTypePizzaFormHeader>
 
-      <ButtonBasicChooseTypePizzaWrapper>
-        <ButtonBasic>Dalej</ButtonBasic>
-      </ButtonBasicChooseTypePizzaWrapper>
+        <ChooseTypePizzaFormListWrapper>
+          {renderPizzas(pizzas)}
+        </ChooseTypePizzaFormListWrapper>
+        {error ? <SelectError>{error}</SelectError> : null}
+        <ButtonBasicChooseTypePizzaWrapper>
+          <ButtonBasic type={"submit"}>Dalej</ButtonBasic>
+        </ButtonBasicChooseTypePizzaWrapper>
 
-      <ChooseTypePizzaFormImg
-        src={ChooseTypePizzaImg}
-        alt="ChooseTypePizzaImg "
-      />
-    </ChooseTypePizzaFormWrapper>
+        <ChooseTypePizzaFormImg
+          src={ChooseTypePizzaImg}
+          alt="ChooseTypePizzaImg "
+        />
+      </ChooseTypePizzaFormWrapper>
+    </Formik>
   );
 };
 

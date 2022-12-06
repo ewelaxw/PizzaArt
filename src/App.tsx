@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import RequiredAuth from "./Components/Molecules/RequiredAuth/RequiredAuth";
+import UserProvider from "./Providers/UserProvider";
 import { routes } from "./Routes/Routes";
 import MainTemplate from "./Template/MainTemplate";
 import ChooseAdditivesView from "./Views/ChooseAdditivesView/ChooseAdditivesView";
@@ -22,18 +24,22 @@ const App = () => {
     preparation,
   } = routes;
   return (
-    <Routes>
-      <Route element={<MainTemplate />}>
-        <Route index path={index} element={<HeroPageView />} />
-        <Route path={login} element={<LoginView />} />
-        <Route path={registration} element={<RegistrationView />} />
-        <Route path={chooseType} element={<ChooseTypePizzaView />} />
-        <Route path={chooseAdditives} element={<ChooseAdditivesView />} />
-        <Route path={chooseSize} element={<ChooseSizeView />} />
-        <Route path={summary} element={<SummaryView />} />
-        <Route path={preparation} element={<PreparationOrderView />} />
-      </Route>
-    </Routes>
+    <UserProvider>
+      <Routes>
+        <Route element={<MainTemplate />}>
+          <Route index path={index} element={<HeroPageView />} />
+          <Route path={login} element={<LoginView />} />
+          <Route path={registration} element={<RegistrationView />} />
+          <Route element={<RequiredAuth />}>
+            <Route path={chooseType} element={<ChooseTypePizzaView />} />
+            <Route path={chooseAdditives} element={<ChooseAdditivesView />} />
+            <Route path={chooseSize} element={<ChooseSizeView />} />
+            <Route path={summary} element={<SummaryView />} />
+            <Route path={preparation} element={<PreparationOrderView />} />
+          </Route>
+        </Route>
+      </Routes>
+    </UserProvider>
   );
 };
 

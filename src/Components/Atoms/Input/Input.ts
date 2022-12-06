@@ -8,4 +8,6 @@ export const Input = styled(Field)`
   border-radius: 10px;
   border: none;
   background-color: ${(props: StyledTheme) => props.theme.colors.blueGray};
+  font-size: ${(props: StyledTheme) => props.theme.fontSizes.mediumXl};
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
 `;

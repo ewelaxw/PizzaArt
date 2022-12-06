@@ -5,16 +5,17 @@ import {
   RegistrationHeader,
 } from "./RegistrationForm.styles";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { routes } from "../../../Routes/Routes";
 import { Formik } from "formik";
 import { FormError } from "../../Atoms/FormError/FormError";
+import axios from "axios";
+import { UserContext } from "../../../Providers/UserProvider";
 
 interface MyFormValues {
   user: string;
   city: string;
   streetAndNumber: string;
-  email: string;
   password: string;
   repeatPassword: string;
 }
@@ -24,20 +25,31 @@ const RegistrationForm = () => {
     user: "",
     city: "",
     streetAndNumber: "",
-    email: "",
     password: "",
     repeatPassword: "",
   };
 
-  const { registration } = routes;
+  const { chooseType } = routes;
 
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const { handleSetUser } = useContext(UserContext);
 
-  const handleSubmit = async (value: MyFormValues) => {
-    console.log("test");
-    setError("");
-    navigate(registration, { replace: true });
+  const handleSubmit = (values: MyFormValues) => {
+    const { user, city, streetAndNumber, password } = values;
+    axios
+      .post("http://localhost:8000/Register", {
+        name: user,
+        password,
+        city,
+        streetAndNumber,
+      })
+      .then((response: any) => {
+        const user = response.data;
+        handleSetUser(user);
+        navigate(chooseType, { replace: true });
+      })
+      .catch(() => setError("Nie udało się zarejestrować"));
   };
 
   return (
@@ -45,7 +57,6 @@ const RegistrationForm = () => {
       initialValues={initialValues}
       onSubmit={(values, action) => {
         handleSubmit(values);
-        console.log("Submit");
 
         action.setSubmitting(false);
       }}
@@ -55,28 +66,22 @@ const RegistrationForm = () => {
         {error ? (
           <FormError>
             Podane dane są nieprawidłowe. <br />
-            Upewnij się, że podane email i hasło są poprawne
+            Upewnij się, że podane hasła są takie same
           </FormError>
         ) : null}
 
-        <InputField name="name" placeholder="Imię" label="Imię" />
+        <InputField name="user" placeholder="Imię" label="Imię" />
         <InputField
           name="city"
           placeholder="Miasto"
           label="Miasto"
-          type="city"
+          type="text"
         />
         <InputField
           name="streetAndNumber"
           placeholder="Ulica i nr"
           label="Ulica i nr"
-          type="streetAndNumber"
-        />
-        <InputField
-          name="email"
-          placeholder="Email"
-          label="Email"
-          type="email"
+          type="text"
         />
         <InputField
           name="password"
@@ -85,10 +90,10 @@ const RegistrationForm = () => {
           type="password"
         />
         <InputField
-          name="repeatpassword"
+          name="repeatPassword"
           placeholder="Powtórz hasło"
           label="Powtórz hasło"
-          type="repeatPassword"
+          type="password"
         />
         <ButtonBasic type={"submit"}>Zarejestruj</ButtonBasic>
       </RegistrationFormWrapper>

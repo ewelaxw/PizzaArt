@@ -6,5 +6,6 @@ export const Label = styled.label`
   display: flex;
   align-self: flex-start;
   margin: 0 5px 0 5px;
-  font-family: ${(props: StyledTheme) => props.theme.fontFamily.inter};
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
+  font-size: ${(props: StyledTheme) => props.theme.fontSizes.large};
 `;
