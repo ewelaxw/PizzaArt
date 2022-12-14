@@ -54,7 +54,7 @@ const ChooseAdditivesForm = () => {
               value={ingredient.id}
             />
             <ChooseAdditivesFormLabel>
-              {`${ingredient.name} Cena: ${ingredient.price} zł`}
+              {`${ingredient.name}  ${ingredient.price} zł`}
             </ChooseAdditivesFormLabel>
           </ChooseAdditivesFormCheckboxAndLabelWrapper>
         </ChooseAdditivesFormListElement>

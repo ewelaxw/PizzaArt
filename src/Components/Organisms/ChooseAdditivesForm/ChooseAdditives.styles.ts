@@ -16,7 +16,7 @@ export const ChooseAdditivesFormWrapper = styled(Form)`
   justify-content: center;
   grid-template-columns: 1fr;
   position: relative;
-  margin: 50px 0;
+  margin: 50px 0 20px 0;
 `;
 
 export const ChooseAdditivesHeader = styled.h2`
@@ -74,8 +74,8 @@ export const ButtonBasicChooseAdditivesWrapper = styled.div`
 `;
 
 export const ChooseAdditivesFormImg = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   position: absolute;
   display: flex;
   justify-self: flex-end;

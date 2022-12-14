@@ -6,9 +6,13 @@ export const FooterWrapper = styled.footer`
   width: 100%;
   height: 100%;
   background-color: ${(props: StyledTheme) => props.theme.colors.green};
-  grid-row: 3/4;
-  grid-template-columns: 100px 1fr 120px;
-  grid-template-rows: 100%;
-  padding: 0 10px;
-  justify-content: center;
+  padding: 0 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+export const FooterText = styled.span`
+  font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
+  font-size: ${(props: StyledTheme) => props.theme.fontSizes.medium};
 `;

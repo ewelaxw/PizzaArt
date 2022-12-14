@@ -69,6 +69,9 @@ export const SummaryPrice = styled.div`
   font-family: ${(props: StyledTheme) => props.theme.fontFamily.roboto};
   display: flex;
   flex-direction: row;
+  padding: 10px 0;
+  width: 190px;
+  border-top: 2px solid ${(props: StyledTheme) => props.theme.colors.black};
 `;
 
 export const SummaryAddressInfoWrapper = styled.div`

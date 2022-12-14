@@ -36,20 +36,29 @@ const RegistrationForm = () => {
   const { handleSetUser } = useContext(UserContext);
 
   const handleSubmit = (values: MyFormValues) => {
-    const { user, city, streetAndNumber, password } = values;
-    axios
-      .post("http://localhost:8000/Register", {
-        name: user,
-        password,
-        city,
-        streetAndNumber,
-      })
-      .then((response: any) => {
-        const user = response.data;
-        handleSetUser(user);
-        navigate(chooseType, { replace: true });
-      })
-      .catch(() => setError("Nie udało się zarejestrować"));
+    const { user, city, streetAndNumber, password, repeatPassword } = values;
+    if (
+      user !== "" &&
+      city !== "" &&
+      streetAndNumber !== "" &&
+      password === repeatPassword
+    ) {
+      axios
+        .post("http://localhost:8000/Register", {
+          name: user,
+          password,
+          city,
+          streetAndNumber,
+        })
+        .then((response: any) => {
+          const user = response.data;
+          handleSetUser(user);
+          navigate(chooseType, { replace: true });
+        })
+        .catch(() => setError("Nie udało się zarejestrować"));
+    } else {
+      setError("Nie poprawne dane");
+    }
   };
 
   return (
@@ -66,7 +75,7 @@ const RegistrationForm = () => {
         {error ? (
           <FormError>
             Podane dane są nieprawidłowe. <br />
-            Upewnij się, że podane hasła są takie same
+            Upewnij się, że podane dane są prawidłowe
           </FormError>
         ) : null}
 

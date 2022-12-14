@@ -81,8 +81,8 @@ export const ButtonBasicChooseTypePizzaWrapper = styled.div`
 `;
 
 export const ChooseTypePizzaFormImg = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   position: absolute;
   display: flex;
   justify-self: flex-end;

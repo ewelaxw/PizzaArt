@@ -85,7 +85,7 @@ const ChooseTypePizzaForm = () => {
       return {
         label: `🍕 ${name} ${setSpicyLevel(spiciness)} (${getIngredients(
           ingredients
-        )}) Vegetarian: ${isVege ? "✔️" : "❌"}`,
+        )}) Wegetariańska: ${isVege ? "✔️" : "❌"}`,
         value: id,
       };
     });

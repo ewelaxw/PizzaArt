@@ -80,8 +80,8 @@ export const ButtonBasicChooseSizeWrapper = styled.div`
 `;
 
 export const ChooseSizeFormImg = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   position: absolute;
   display: flex;
   justify-self: flex-end;

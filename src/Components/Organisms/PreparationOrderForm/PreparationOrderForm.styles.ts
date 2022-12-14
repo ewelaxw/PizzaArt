@@ -8,17 +8,17 @@ type VisibilityProps = {
 export const PreparationOrderFormWrapper = styled.div`
   width: 1000px;
   height: auto;
+  min-height: 100vh;
   background-color: ${(props: StyledTheme) => props.theme.colors.blueGray};
   border-radius: 10px;
   padding: 20px 40px;
   display: grid;
   grid-auto-rows: auto;
-  row-gap: 80px;
+  row-gap: 10px;
   align-self: center;
   align-items: center;
   justify-content: center;
   grid-template-columns: 1fr;
-  transform: translateY(-100px);
 `;
 
 export const PreparationOrderFormHeader = styled.h2`

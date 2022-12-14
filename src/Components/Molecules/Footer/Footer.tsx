@@ -1,6 +1,10 @@
-import { FooterWrapper } from "./Footer.styles";
+import { FooterText, FooterWrapper } from "./Footer.styles";
 
 const Footer = () => {
-  return <FooterWrapper></FooterWrapper>;
+  return (
+    <FooterWrapper>
+      <FooterText>Created by Ewelina Woińska</FooterText>
+    </FooterWrapper>
+  );
 };
 export default Footer;
